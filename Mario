@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Mario</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        #mario {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="mario"></div>
+
+    <script>
+        const mario = document.getElementById("mario");
+        let positionX = window.innerWidth / 2 - 25; // Initial X position
+
+        // Function to move Mario left
+        function moveLeft() {
+            positionX -= 10;
+            mario.style.left = positionX + "px";
+        }
+
+        // Function to move Mario right
+        function moveRight() {
+            positionX += 10;
+            mario.style.left = positionX + "px";
+        }
+
+        // Listen for touch events on mobile
+        mario.addEventListener("touchstart", function(e) {
+            const touchX = e.touches[0].clientX;
+            if (touchX < positionX + 25) {
+                moveLeft();
+            } else if (touchX > positionX + 25) {
+                moveRight();
+            }
+        });
+
+        // Prevent scrolling on mobile when touching Mario
+        mario.addEventListener("touchmove", function(e) {
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>
